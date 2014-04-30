@@ -1,0 +1,17 @@
+CHDR = \
+
+
+DHDR = \
+
+
+SHDR = \
+
+
+CSRC = \
+testing_cgemm.cpp testing_cgemm_reduce.cpp testing_cgemv.cpp testing_claswp.cpp testing_cposv_gpu.cpp testing_cpotrf_gpu.cpp testing_cpotrf2_gpu.cpp testing_cpotrf_msub.cpp testing_cpotri_gpu.cpp testing_cpotrf_mgpu.cpp testing_cposv.cpp testing_cpotrf.cpp testing_cgesv_gpu.cpp testing_cgetrf_gpu.cpp testing_cgetrf_msub.cpp testing_cgetrf2_gpu.cpp testing_cgetri_gpu.cpp testing_cgetrf_mgpu.cpp testing_cgesv.cpp testing_cgetrf.cpp testing_cgeqrf_gpu.cpp testing_cgeqrf_msub.cpp testing_cgeqrf2_gpu.cpp testing_cgeqrs_gpu.cpp testing_cgeqr2x_gpu.cpp testing_cgeqrf_mgpu.cpp testing_cgeqrf.cpp testing_cheevd.cpp testing_chetrd.cpp testing_cgeev.cpp testing_cgehrd.cpp testing_cgesvd.cpp testing_cgebrd.cpp
+
+DSRC = \
+testing_dgemm.cpp testing_dgemm_reduce.cpp testing_dgemv.cpp testing_dlaswp.cpp testing_dposv_gpu.cpp testing_dpotrf_gpu.cpp testing_dpotrf2_gpu.cpp testing_dpotrf_msub.cpp testing_dpotri_gpu.cpp testing_dpotrf_mgpu.cpp testing_dposv.cpp testing_dpotrf.cpp testing_dgesv_gpu.cpp testing_dgetrf_gpu.cpp testing_dgetrf_msub.cpp testing_dgetrf2_gpu.cpp testing_dgetri_gpu.cpp testing_dgetrf_mgpu.cpp testing_dgesv.cpp testing_dgetrf.cpp testing_dgeqrf_gpu.cpp testing_dgeqrf_msub.cpp testing_dgeqrf2_gpu.cpp testing_dgeqrs_gpu.cpp testing_dgeqr2x_gpu.cpp testing_dgeqrf_mgpu.cpp testing_dgeqrf.cpp testing_dsytrd.cpp testing_dgehrd.cpp testing_dgesvd.cpp testing_dgebrd.cpp
+
+SSRC = \
+testing_sgemm.cpp testing_sgemm_reduce.cpp testing_sgemv.cpp testing_slaswp.cpp testing_sposv_gpu.cpp testing_spotrf_gpu.cpp testing_spotrf2_gpu.cpp testing_spotrf_msub.cpp testing_spotri_gpu.cpp testing_spotrf_mgpu.cpp testing_sposv.cpp testing_spotrf.cpp testing_sgesv_gpu.cpp testing_sgetrf_gpu.cpp testing_sgetrf_msub.cpp testing_sgetrf2_gpu.cpp testing_sgetri_gpu.cpp testing_sgetrf_mgpu.cpp testing_sgesv.cpp testing_sgetrf.cpp testing_sgeqrf_gpu.cpp testing_sgeqrf_msub.cpp testing_sgeqrf2_gpu.cpp testing_sgeqrs_gpu.cpp testing_sgeqr2x_gpu.cpp testing_sgeqrf_mgpu.cpp testing_sgeqrf.cpp testing_ssyevd.cpp testing_ssytrd.cpp testing_sgeev.cpp testing_sgehrd.cpp testing_sgesvd.cpp testing_sgebrd.cpp

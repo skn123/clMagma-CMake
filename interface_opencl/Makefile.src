@@ -1,0 +1,17 @@
+CHDR = \
+
+
+DHDR = \
+
+
+SHDR = \
+
+
+CSRC = \
+magmablas_c.cpp cauxiliary.cpp cbcyclic.cpp cgemm_reduce.cpp clacpy.cpp clarfbx.cpp clarfgx-v2.cpp scnrm2.cpp cpermute.cpp cswap.cpp ctranspose.cpp ctranspose2.cpp ctranspose_inplace.cpp cauxiliary.cl cgemm_reduce.cl clacpy.cl clarfbx.cl clarfgx-v2.cl clarfx.cl scnrm2.cl cpermute-v2.cl cswap.cl ctranspose-v2.cl ctranspose.cl ctranspose_inplace.cl
+
+DSRC = \
+magmablas_d.cpp dauxiliary.cpp dbcyclic.cpp dgemm_reduce.cpp dlacpy.cpp dlag2s.cpp slag2d.cpp dlarfbx.cpp dlarfgx-v2.cpp dnrm2.cpp dpermute.cpp dswap.cpp dtranspose.cpp dtranspose2.cpp dtranspose_inplace.cpp dauxiliary.cl dgemm_reduce.cl dlacpy.cl dlag2s.cl slag2d.cl dlarfbx.cl dlarfgx-v2.cl dlarfx.cl dnrm2.cl dpermute-v2.cl dswap.cl dtranspose-v2.cl dtranspose.cl dtranspose_inplace.cl
+
+SSRC = \
+magmablas_s.cpp sauxiliary.cpp sbcyclic.cpp sgemm_reduce.cpp slacpy.cpp slarfbx.cpp slarfgx-v2.cpp snrm2.cpp spermute.cpp sswap.cpp stranspose.cpp stranspose2.cpp stranspose_inplace.cpp sauxiliary.cl sgemm_reduce.cl slacpy.cl slarfbx.cl slarfgx-v2.cl slarfx.cl snrm2.cl spermute-v2.cl sswap.cl stranspose-v2.cl stranspose.cl stranspose_inplace.cl

@@ -1,0 +1,17 @@
+CHDR = \
+
+
+DHDR = \
+
+
+SHDR = \
+
+
+CSRC = \
+cpanel_to_q.cpp cprint.cpp
+
+DSRC = \
+dpanel_to_q.cpp dprint.cpp
+
+SSRC = \
+spanel_to_q.cpp sprint.cpp

@@ -1,0 +1,62 @@
+
+             clMAGMA Contributors' Guide
+
+-----------------------------------------------------
+
+The clMAGMA program style follows the general guidelines for Sca/LAPACK 
+in terms of interfaces, copyrights and licensing, citing the authors of the
+software, and documentation:  
+http://www.netlib.org/lapack-dev/lapack-coding/program-style.html
+
+
+
+Routine Naming and Design
+-----------------------------------------------
+In general, follow existing LAPACK and clMAGMA style.
+
+To ease maintenance we encourage the use of BLAS.
+Further, a double complex version of the software is maintained and the other
+precisions are generated from it. To do this developers have to use the magma
+routine and types naming conventions. 
+
+* Determining Machine Parameters
+The hardware used is queried once during the magma_init() are the parameters
+are available for use by developers. We recommend using the parameters from
+magma_init (instead of additional queries) in order to reduce overheads associated
+with the calls. If needed, new parameters can be requested and will be added
+for query in magma_init.
+
+* Determining the Block Size for Block Algorithms
+Block sizes, in contrast to LAPACK, are are not provided by the ILAENV routine.
+Currently, the developer provides
+
+extern "C" int magma_get_ROUTINE_nb(int m);
+
+function (see control/get_nb_GPUNAME.cpp for examples) that returns the block
+sizes based on the parameter m.
+
+
+
+Language
+-----------------------------------------------
+clMAGMA routines are called from the host, and the host software is written in 
+C/C++. File names are given .cpp extension. The use of C++ features is subject of 
+discussion with the clMAGMA developers' team. 
+Wrappers are provided to allow calling clMAGMA routines from Fortran.
+
+
+Source Formatting
+-----------------------------------------------
+In general, follow existing clMAGMA style.
+
+
+Testing and Timing Routines 
+-----------------------------------------------
+
+
+Contact
+-----------------------------------------------
+magma-devel@icl.utk.edu
+
+
+

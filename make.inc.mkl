@@ -1,0 +1,47 @@
+#//////////////////////////////////////////////////////////////////////////////
+#   -- MAGMA (version 1.1.0) --
+#      Univ. of Tennessee, Knoxville
+#      Univ. of California, Berkeley
+#      Univ. of	Colorado, Denver
+#      @date January 2014
+#//////////////////////////////////////////////////////////////////////////////
+
+# setenv AMD_CLBLAS_STORAGE_PATH /home/tomov/cl_magma
+#
+# GPU_TARGET specifies for which GPU you want to compile MAGMA:
+#     "Tesla" (NVIDIA compute capability 1.x cards)
+#     "Fermi" (NVIDIA compute capability 2.x cards)
+#     "AMD"   (clMAGMA with AMD cards)
+# See http://developer.nvidia.com/cuda-gpus
+GPU_TARGET = AMD
+
+CC        = g++
+FORT      = gfortran
+
+ARCH      = ar
+ARCHFLAGS = cr
+RANLIB    = ranlib
+
+OPTS      = -fPIC -O3 -DADD_ -Wall
+FOPTS     = -fPIC -O3 -DADD_ -Wall -x f95-cpp-input
+F77OPTS   = -fPIC -O3 -DADD_ -Wall
+LDOPTS    = -fPIC
+
+# define library directories preferably in your environment, or here.
+# for MKL run, e.g.: source /opt/intel/composerxe/mkl/bin/mklvars.sh intel64
+#MKLROOT ?= /opt/intel/composerxe/mkl
+#clBLAS  ?= /opt/clAmdBlas-1.11.314
+#AMDAPP  ?= /opt/AMDAPP
+-include make.check-mkl
+-include make.check-clblas
+
+#LIB       = -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_core -lpthread -lm -fopenmp
+LIB        = -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lm -fopenmp
+LIB       += -lclAmdBlas -lOpenCL
+
+LIBDIR    = -L$(MKLROOT)/lib/intel64 \
+            -L$(MKLROOT)/../compiler/lib/intel64 \
+            -L$(clBLAS)/lib64
+
+INC       = -I$(clBLAS)/include \
+            -I$(AMDAPP)/include

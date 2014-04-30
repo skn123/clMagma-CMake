@@ -1,0 +1,82 @@
+#//////////////////////////////////////////////////////////////////////////////
+#   -- clMAGMA (version 1.1.0) --
+#      Univ. of Tennessee, Knoxville
+#      Univ. of California, Berkeley
+#      Univ. of Colorado, Denver
+#      @date January 2014
+#//////////////////////////////////////////////////////////////////////////////
+
+include $(MAGMA_DIR)/make.inc
+
+#
+# Set default values if they are not set in make.inc
+#
+PGIFORTRAN   ?= 0
+GPU_TARGET   ?= AMD
+LIBMAGMA     ?= $(MAGMA_DIR)/lib/libclmagma.a
+
+#/usr/local/clmagma
+prefix ?= /f/Work/clMagma 
+
+ifeq (${GPU_TARGET}, AMD)
+	OPTS += -DHAVE_clAmdBlas -DHAVE_CBLAS
+else
+$(error GPU_TARGET, currently ${GPU_TARGET}, must be AMD. Please edit your make.inc file)
+endif
+
+LIBEXT = $(LIBDIR) $(LIB)
+
+# INC is all external include directories (CUDA, MKL, etc.).
+# It is used for external programs that link with MAGMA, e.g., via pkgconfig.
+# INC_MAGMA adds internal magma directories needed to compile magma itself.
+INC_MAGMA = $(INC) -I$(MAGMA_DIR)/include -I$(MAGMA_DIR)/control
+
+# Define the pointer size for fortran compilation
+PTRFILE = $(MAGMA_DIR)/control/sizeptr.c
+PTROBJ  = $(MAGMA_DIR)/control/sizeptr.o
+PTREXEC = $(MAGMA_DIR)/control/sizeptr
+PTRSIZE = $(shell $(PTREXEC))
+PTROPT  = -Dmagma_devptr_t="integer(kind=$(PTRSIZE))"
+
+$(PTREXEC): $(PTROBJ)
+	$(CC) $(LDOPTS) -o $@ $<
+
+FOPTS += $(PTROPT)
+
+#
+# Rules to compile object files
+#
+.SUFFIXES:
+
+%.i: %.cpp
+	$(CC) $(OPTS) $(INC_MAGMA) -E $< -o $@
+
+%.i: %.c
+	$(CC) $(OPTS) $(INC_MAGMA) -E $< -o $@
+
+# force headers to pre-process as C++
+%.i: %.h
+	$(CXX) $(OPTS) $(INC_MAGMA) -E $< -o $@
+
+%.o: %.cpp
+	$(CC) $(OPTS) $(INC_MAGMA) -c $< -o $@
+
+%.o: %.c
+	$(CC) $(OPTS) $(INC_MAGMA) -c $< -o $@
+
+%.cu_o: %.cu
+	$(NVCC) $(NVOPTS) $(INC_MAGMA) -c $< -o $@
+
+%.o: %.f90  $(PTREXEC)
+	$(FORT) $(FOPTS) $(INC_MAGMA) -c $< -o $@
+
+%.o: %.F90  $(PTREXEC)
+	$(FORT) $(FOPTS) $(INC_MAGMA) -c $< -o $@
+
+%.o: %.f    $(PTREXEC)
+	$(FORT) $(F77OPTS) $(INC_MAGMA) -c $< -o $@
+
+-include $(MAGMA_DIR)/Makefile.gen
+
+# reset default goal
+.DEFAULT_GOAL :=

@@ -1,0 +1,19 @@
+# check for clBLAS and AMD APP directories and give user hint how to set them
+#clBLAS    = /opt/clAmdBlas-1.11.314
+#AMDAPP    = /opt/AMDAPP
+
+ifeq ($(clBLAS),)
+$(error Set $$clBLAS, preferably in your environment, e.g., run "export clBLAS=/opt/clAmdBlas" in ~/.bashrc, or "setenv clBLAS /opt/clAmdBlas" in ~/.cshrc)
+endif
+
+ifeq ($(AMDAPP),)
+$(error Set $$AMDAPP, preferably in your environment, e.g., run "export AMDAPP=/opt/AMDAPP" in ~/.bashrc, or "setenv AMDAPP /opt/AMDAPP" in ~/.cshrc)
+endif
+
+ifeq ($(wildcard $(clBLAS)),)
+$(error $$clBLAS=$(clBLAS) does not exist. Please set $$clBLAS to where clBLAS is installed.)
+endif
+
+ifeq ($(wildcard $(AMDAPP)),)
+$(error $$AMDAPP=$(AMDAPP) does not exist. Please set $$AMDAPP to where AMD APP is installed.)
+endif

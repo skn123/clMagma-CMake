@@ -1,0 +1,57 @@
+
+             clMAGMA Release Notes
+
+-----------------------------------------------------
+
+clMAGMA is an OpenCL port of MAGMA. It supports AMD GPUs. 
+
+Routines are included for the following algorithms:
+
+    * LU, QR, and Cholesky factorizations, with multi-GPU support
+    * Hessenberg, bidiagonal, and tridiagonal reductions
+    * Linear solvers based on LU, QR, and Cholesky
+    * Eigenvalue and singular value problem solvers
+    * Orthogonal transformation routines.
+
+Most routines have all four precisions:
+single (s), double (d), single-complex (c), double-complex (z).
+
+ 1.1.0 - 11-18-2013
+    * Performance improvements
+    * Add LU, QR, and Cholesky factorizations and solvers with CPU interfaces
+    * Add multi-buffer LU, QR, and Cholesky factorizations that overcome size 
+      limitations for single memory allocation, enabling the solution of large 
+      problems
+    * Add multiGPU implementations for the LU, QR, and Cholesky factorizations.
+    * Add 'make shared' target to make a shared library.
+
+ 1.0.0 - 10-24-2012
+    * Add eigen and singular value problem solvers in both real and
+      complex arithmetic, single and double (routines magma_z|c}heevd,
+      magma_{d|s}syevd, magma_{z|c|d|s}geev, and magma_{z|c|d|s}gesvd) ;
+    * Add matrix inversion routines (routines magma_{z|c|d|s}trtri_gpu,
+      magma_{z|c|d|s}getri_gpu, magma_{z|c|d|s}potri_gpu);
+    * Add orthogonal transformations routines ({z|c}unmqr_gpu,
+      {d|s}ormqr_gpu, {z|c}ungqr, {d|s}orgqr, {z|c}unmtr, {d|s}ormtr,
+      {z|c}unmqr, {d|s}ormqr, {z|c}unmql, {d|s}ormql, {z|c}unghr,
+      and {d|s}orghr).
+
+ 0.3.0 - 06-29-2012
+    * Reduction to upper Hessenberg form by similarity orthogonal 
+      transformations (routines magma_{z|c|d|s}gehrd )
+    * Reduction to upper/lower bidiagonal form by similarity orthogonal 
+      transformations (routines magma_{z|c|d|s}gebrd )
+    * Reduction to tridiagonal form by similarity orthogonal transformations
+      ( routines magma_{zhe|che|dsy|ssy}trd )
+
+ 0.2.0 - 05-26-2012
+    * Change GPU_TARGET in make.inc to descriptive name (e.g., AMD).
+    * Added solvers for general and symmetric matrices 
+    * Added least squares solver
+    * Added multiple precision support for LU factorization
+    * All routines provided in this release support s/d/c/z 
+      precision arithmetic
+
+ 0.1.0 - 04-04-2012
+    * LU, QR, and Cholesky dense matrix factorizations
+    * Auxiliary OpenCL kernels
