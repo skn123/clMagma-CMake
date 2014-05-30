@@ -11,6 +11,11 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 #FIND_PACKAGE(clAmdBlas)
 
 FIND_PACKAGE(ThirdPartyLibraries_MinGW)
+SET(EXT_LIBS
+    gomp
+    gfortran
+)
+
 SET(clcompile_SRCS
     ${PROJECT_SOURCE_DIR}/interface_opencl/clcompile.cpp
     ${PROJECT_SOURCE_DIR}/interface_opencl/CL_MAGMA_RT.cpp
@@ -21,7 +26,7 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include
 
 ADD_DEFINITIONS(-DHAVE_clAmdBlas -DHAVE_CBLAS -DADD_)
 ADD_EXECUTABLE(clCompile ${clcompile_SRCS})
-TARGET_LINK_LIBRARIES(clCompile ${MODULAR_LIBRARY_LIST})
+TARGET_LINK_LIBRARIES(clCompile ${MODULAR_LIBRARY_LIST} ${EXT_LIBS})
 SET_TARGET_PROPERTIES(clCompile PROPERTIES 
                       COMPILE_FLAGS "-DHAVE_clAmdBlas -DHAVE_CBLAS -DADD_")
                       
@@ -91,13 +96,14 @@ EXECUTE_PROCESS( COMMAND ${CMAKE_COMMAND} -E copy
 #from the cache.
 #------------------------------------------------------------------------------#
 ADD_LIBRARY(clMagma_Fortran ${clMagma_Fortran_SRCS})
+TARGET_LINK_LIBRARIES(clMagma_Fortran  ${EXT_LIBS})
 SET_TARGET_PROPERTIES(clMagma_Fortran PROPERTIES COMPILE_FLAGS "-x f95-cpp-input -Dmagma_devptr_t='integer(kind=8)'")
 
 #------------------------------------------------------------------------------#
 #Build the clMagma Library
 #------------------------------------------------------------------------------#
 ADD_LIBRARY(clMagma SHARED ${clMagma_SRCS})
-TARGET_LINK_LIBRARIES(clMagma clMagma_Fortran ${MODULAR_LIBRARY_LIST} ${NONMODULAR_LIBRARY_LIST})
+TARGET_LINK_LIBRARIES(clMagma clMagma_Fortran ${MODULAR_LIBRARY_LIST} ${NONMODULAR_LIBRARY_LIST} ${EXT_LIBS})
 SET_TARGET_PROPERTIES(clMagma PROPERTIES 
                       COMPILE_FLAGS "-DADD_ -DHAVE_clAmdBlas -DHAVE_CBLAS"
                       PREFIX "")
@@ -116,5 +122,6 @@ ENDFOREACH()
 
 SET(Build_Testing OFF CACHE BOOL "Build clMagma Testing")
 IF(Build_Testing)
+#This directory needs to be included as it contains "testings.h"
 INCLUDE(${PROJECT_SOURCE_DIR}/clMagmaTesting.cmake)
 ENDIF()
