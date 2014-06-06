@@ -17,6 +17,7 @@
 
    @author Mark Gates
  */
+#include "clVendor.h"
 
 #define PRECISION_s
 #if defined(PRECISION_c) || defined(PRECISION_z)

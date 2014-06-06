@@ -10,6 +10,7 @@
 
 //#include "common_magma.h"
 //#include "commonblas.h"
+#include "clVendor.h"
 
 #define PRECISION_z
 

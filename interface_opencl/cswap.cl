@@ -7,7 +7,7 @@
  *
  * @generated from zswap.cl normal z -> c, Fri Jan 10 15:51:19 2014
  */
-
+#include "clVendor.h"
 #define PRECISION_c
 #define BLOCK_SIZE 64
 

@@ -17,7 +17,7 @@
 
    @author Mark Gates
  */
-
+#include "clVendor.h"
 #define PRECISION_z
 #if defined(PRECISION_c) || defined(PRECISION_z)
 typedef double2 magmaDoubleComplex;

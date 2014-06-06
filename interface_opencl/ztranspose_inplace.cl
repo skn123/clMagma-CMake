@@ -11,7 +11,7 @@
 // #include "common_magma.h"
 // #define PRECISION_z
 // #include "commonblas.h"
-
+#include "clVendor.h"
 
 #define PRECISION_z
 //#define NB 16

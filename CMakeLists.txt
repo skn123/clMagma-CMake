@@ -5,16 +5,13 @@
 PROJECT(clMagma CXX Fortran)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 #This Line pertains to my dev environment. If you want to follow your own 
-#mechanism, then you will probably need
-#FIND_PACKAGE(OpenCL)
-#FIND_PACKAGE(OpenBlas)
-#FIND_PACKAGE(clAmdBlas)
+#mechanism, then you will probably need. Replace ${MODULAR_LIBRARY_LIST} and 
+#${NONMODULAR_LIBRARY_LIST} with the libraries
+#FIND_PACKAGE(OpenCL REQUIRED)
+#FIND_PACKAGE(OpenBlas REQUIRED)
+#FIND_PACKAGE(clBlas REQUIRED)
 
 FIND_PACKAGE(ThirdPartyLibraries_MinGW)
-SET(EXT_LIBS
-    gomp
-    gfortran
-)
 
 SET(clcompile_SRCS
     ${PROJECT_SOURCE_DIR}/interface_opencl/clcompile.cpp
@@ -24,11 +21,11 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include
 					          ${PROJECT_SOURCE_DIR}/control
                     ${PROJECT_SOURCE_DIR}/interface_opencl)
 
-ADD_DEFINITIONS(-DHAVE_clAmdBlas -DHAVE_CBLAS -DADD_)
+ADD_DEFINITIONS(-DHAVE_clAmdBlas -DHAVE_CBLAS -DADD_ -Dcl_khr_fp64)
 ADD_EXECUTABLE(clCompile ${clcompile_SRCS})
-TARGET_LINK_LIBRARIES(clCompile ${MODULAR_LIBRARY_LIST} ${EXT_LIBS})
+TARGET_LINK_LIBRARIES(clCompile ${MODULAR_LIBRARY_LIST} ${NONMODULAR_LIBRARY_LIST})
 SET_TARGET_PROPERTIES(clCompile PROPERTIES 
-                      COMPILE_FLAGS "-DHAVE_clAmdBlas -DHAVE_CBLAS -DADD_")
+                      COMPILE_FLAGS "-DHAVE_clAmdBlas -DHAVE_CBLAS -DADD_ -Dcl_khr_fp64")
                       
 #------------------------------------------------------------------------------#
 #This variable enumerates all the cpp/c and header files that will be used in 
@@ -79,13 +76,15 @@ FILE(MAKE_DIRECTORY ${TGT_DIR})
 
 #------------------------------------------------------------------------------#
 #The file "kernels_header.h" present in /interface_opencl folder needs to be
-#copied to the binary dir where clCompile is built. A better solution would be
-#to include the path of the file in the program itself (TBD)
+#copied, along with "clVendor.h" to the binary dir where clCompile is built. A 
+#better solution would be to include the path of the file in the program itself (TBD)
 #------------------------------------------------------------------------------#
-EXECUTE_PROCESS( COMMAND ${CMAKE_COMMAND} -E copy 
-                 ${PROJECT_SOURCE_DIR}/interface_opencl/kernels_header.h
-                 ${CMAKE_CURRENT_BINARY_DIR}
+SET(HDRS_COPY ${PROJECT_SOURCE_DIR}/interface_opencl/kernels_header.h
+              ${PROJECT_SOURCE_DIR}/interface_opencl/clVendor.h
 )
+FOREACH(f ${HDRS_COPY})
+  EXECUTE_PROCESS( COMMAND ${CMAKE_COMMAND} -E copy ${f} ${CMAKE_CURRENT_BINARY_DIR} )
+ENDFOREACH()
 
 #------------------------------------------------------------------------------#
 #Build the Fortran files into a separate archive
@@ -105,7 +104,7 @@ SET_TARGET_PROPERTIES(clMagma_Fortran PROPERTIES COMPILE_FLAGS "-x f95-cpp-input
 ADD_LIBRARY(clMagma SHARED ${clMagma_SRCS})
 TARGET_LINK_LIBRARIES(clMagma clMagma_Fortran ${MODULAR_LIBRARY_LIST} ${NONMODULAR_LIBRARY_LIST} ${EXT_LIBS})
 SET_TARGET_PROPERTIES(clMagma PROPERTIES 
-                      COMPILE_FLAGS "-DADD_ -DHAVE_clAmdBlas -DHAVE_CBLAS"
+                      COMPILE_FLAGS "-DADD_ -DHAVE_clAmdBlas -DHAVE_CBLAS -Dcl_khr_fp64"
                       PREFIX "")
 #------------------------------------------------------------------------------#
 #Follow the instructions given on this webpage
@@ -122,6 +121,6 @@ ENDFOREACH()
 
 SET(Build_Testing OFF CACHE BOOL "Build clMagma Testing")
 IF(Build_Testing)
-#This directory needs to be included as it contains "testings.h"
-INCLUDE(${PROJECT_SOURCE_DIR}/clMagmaTesting.cmake)
+  #This directory needs to be included as it contains "testings.h"
+  INCLUDE(${PROJECT_SOURCE_DIR}/clMagmaTesting.cmake)
 ENDIF()

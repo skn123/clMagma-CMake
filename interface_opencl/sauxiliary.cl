@@ -13,6 +13,7 @@
       in 16 blocks, 32 thread per block and initializes to zero the 1st
       32x32 block of A.
 */
+#include "clVendor.h"
 
 #define PRECISION_s
 #if defined(PRECISION_c) || defined(PRECISION_z)

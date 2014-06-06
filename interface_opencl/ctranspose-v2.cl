@@ -10,7 +10,7 @@
 */
 //#include "common_magma.h"
 //#include "commonblas.h"
-
+#include "clVendor.h"
 #define PRECISION_c
 
 #define CSIZE_1SHARED 32

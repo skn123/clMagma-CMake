@@ -7,6 +7,7 @@
  *
  * @precisions normal z -> s d c
  */
+#include "clVendor.h"
 
 #define PRECISION_z
 #define BLOCK_SIZE 64

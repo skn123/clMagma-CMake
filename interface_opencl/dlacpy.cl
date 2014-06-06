@@ -17,7 +17,7 @@
 
    @author Mark Gates
  */
-
+#include "clVendor.h"
 #define PRECISION_d
 #if defined(PRECISION_c) || defined(PRECISION_z)
 typedef double double;

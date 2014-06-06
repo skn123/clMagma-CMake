@@ -8,6 +8,7 @@
  * @precisions normal z -> s d c
  */
 //#include "common_magma.h"
+#include "clVendor.h"
 
 #define PRECISION_z
 #define BLOCK_SIZE 32

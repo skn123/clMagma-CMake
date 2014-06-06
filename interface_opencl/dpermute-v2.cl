@@ -8,7 +8,7 @@
  * @generated from zpermute-v2.cl normal z -> d, Fri Jan 10 15:51:19 2014
  */
 //#include "common_magma.h"
-
+#include "clVendor.h"
 #define PRECISION_d
 #define BLOCK_SIZE 32
 
